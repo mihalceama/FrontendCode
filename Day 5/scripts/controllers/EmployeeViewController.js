@@ -28,4 +28,14 @@ hrApp.controller('EmployeeViewController', ['$scope', '$http', '$routeParams', '
         $scope.back = function () {
             $location.url('/employeeList');
         }
+        Service.findById($routeParams.employeeId)
+            .then(function (res) {
+                $scope.employee = res.data;
+            }, function (err) {
+                console.log("Error at employees/findOne: " + err);
+            });
+
+        $scope.back = function () {
+            $location.url('/employeeList');
+        }
     }]);

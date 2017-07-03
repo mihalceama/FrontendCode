@@ -1,5 +1,5 @@
-hrApp.controller('EmployeeAddController', ['$scope', '$http', '$location', '$commonResourcesFactory',
-    function($scope, $http, $location, $commonResourcesFactory) {
+hrApp.controller('EmployeeAddController', ['$scope', '$http', '$location', 'CommonResourcesFactory', 'ManagerService', '$routeParams',
+    function($scope, $http, $location, CommonResourcesFactory, ManagerService, $routeParams) {
         $scope.employee = {};
         $scope.requiredErrorMessage = "Please fill out this form!";
         $scope.patternDateNotRespectedMessage = "The date format should be yyyy-mm-dd";
@@ -7,6 +7,36 @@ hrApp.controller('EmployeeAddController', ['$scope', '$http', '$location', '$com
 
         //TODO #HR1
 
+        ManagerService.findManagerId()
+            .then(function (res) {
+                $scope.managers = ManagerService.findManagerFromEmployees(res.data);
+            }, function (err) {
+                console.log("Error at employees/findOne: " + err);
+            });
+        ManagerService.findDepartmentId()
+            .then(function (res) {
+                $scope.departments = res.data;
+            // }, function (err) {
+            //     console.log("Error at employees/findOne: " + err);
+            });
+        ManagerService.findJobId()
+            .then(function (res) {
+                $scope.jobs = res.data;
+                // }, function (err) {
+                //     console.log("Error at employees/findOne: " + err);
+            });
+
+
+
+
+        // $http({url: CommonResourcesFactory.findAllDepartmentsUrl, method: 'GET'})
+        //     .success(function (data, status, headers, config) {
+        //         $scope.departments = data;
+        //     });
+        // $http({url: CommonResourcesFactory.findAllJobsUrl, method: 'GET'})
+        //     .success(function (data, status, headers, config) {
+        //         $scope.jobs = data;
+        //     });
         /**
          * Reset form
          */

@@ -12,6 +12,11 @@ hrApp.config(['$routeProvider',
                 templateUrl: 'views/demo/math.html',
                 controller: 'MathController'
             })
+            .when('/employeeAdd', {
+                templateUrl: 'views/employeeAdd.html',
+                controller: 'EmployeeAddController'
+            })
+
             .when('/employeeList', {
                 templateUrl: 'views/employeeList.html',
                 controller: 'EmployeeListController'
